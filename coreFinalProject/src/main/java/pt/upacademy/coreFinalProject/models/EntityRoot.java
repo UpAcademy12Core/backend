@@ -8,27 +8,19 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Entity_ implements Serializable {
+public class EntityRoot implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long ID;
-	
-	public enum Role {
-		ADMIN, SUPERUSER, USER
-	};
+	private long id;
 
-	public long getID() {
-		return ID;
+	public long getId() {
+		return id;
 	}
 
-	public void setID(long iD) {
-		ID = iD;
+	public void setId(long iD) {
+		id = iD;
 	}
-	
-	
-	
-
 }

@@ -2,14 +2,14 @@ package pt.upacademy.coreFinalProject.models.DTOS;
 
 public class EntityDTO {
 	
-	private long ID;
+	private long id;
 
 	public long getId() {
-		return ID;
+		return id;
 	}
 
 	public void setId(long id) {
-		this.ID = id;
+		this.id = id;
 	}
 	
 	

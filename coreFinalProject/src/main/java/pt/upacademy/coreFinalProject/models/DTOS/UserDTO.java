@@ -1,13 +1,8 @@
 package pt.upacademy.coreFinalProject.models.DTOS;
 
-import pt.upacademy.coreFinalProject.models.Entity_.Role;
+import pt.upacademy.coreFinalProject.models.Role;
 
 public class UserDTO extends EntityDTO {
-
-//	private enum Role {
-//		ADMIN, SUPERUSER, USER
-//	};
-	
 	private String username;
 	private String email;
 	private Role role;
@@ -19,6 +14,7 @@ public class UserDTO extends EntityDTO {
 
 	public void setUsername(String username) {
 		this.username = username;
+		
 	}
 
 	public String getEmail() {

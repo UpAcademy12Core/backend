@@ -1,44 +1,30 @@
 package pt.upacademy.coreFinalProject.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
-public class User extends Entity_ {
+public class User extends EntityRoot {
 
 	private static final long serialVersionUID = 1L;
-	
-//	private enum Role {
-//		ADMIN, SUPERUSER, USER
-//	};
 
 	private String username;
 	private String email;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Role role;
+	private String hashcode;
+	private String salt;
 
 	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(Role providedRole) throws IllegalArgumentException {
-		switch (providedRole) {
-		case ADMIN:
-			role = Role.ADMIN;
-			break;
-		case SUPERUSER:
-			role = Role.SUPERUSER;
-			break;
-		case USER:
-			role = Role.USER;
-			break;
-
-		default:
-			throw new IllegalArgumentException("Not valid role!"); // Fazer catch no bussiness quando chamar o metodo
-		
-		}
+	public void setRole(Role role) {
+		this.role = role;
 	}
-
-	private String password; // verificar o tipo da password --- hascode
-	private String salt;
 
 	public String getUsername() {
 		return username;
@@ -56,12 +42,12 @@ public class User extends Entity_ {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getHashcode() {
+		return hashcode;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setHashcode(String hashcode) {
+		this.hashcode = hashcode;
 	}
 
 	public String getSalt() {
@@ -70,11 +56,6 @@ public class User extends Entity_ {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
-	}
-
-	@Override
-	public String toString() {
-		return "User [username=" + username + ", email=" + email + ", password=" + password + ", salt=" + salt + "]";
 	}
 
 }
