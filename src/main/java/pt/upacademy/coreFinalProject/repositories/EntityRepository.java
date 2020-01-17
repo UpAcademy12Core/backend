@@ -41,5 +41,6 @@ public abstract class EntityRepository<E extends EntityRoot, D extends EntityDTO
 		entityManager.remove(entity);
 
 	}
+	
 
 }

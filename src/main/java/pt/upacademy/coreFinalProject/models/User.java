@@ -9,13 +9,15 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = User.GET_ALL_USERS, query = "SELECT u FROM User u")
+	@NamedQuery(name = User.GET_ALL_USERS, query = "SELECT u FROM User u"),
+	@NamedQuery(name = User.GET_USER_BY_EMAIL, query = "SELECT u FROM User u WHERE u.email = :userEmail")
 })
 public class User extends EntityRoot {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String GET_ALL_USERS = "getAllUsers";
+	public static final String GET_USER_BY_EMAIL = "getUserByEmail";
 	
 	private String username;
 	private String email;

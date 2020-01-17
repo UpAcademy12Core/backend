@@ -66,6 +66,17 @@ public class UserService extends EntityService<UserRepository, User, UserDTO>{
 		
 	}
 
+	public User checkedValidUser(UserDTO user) {
+		
+		return null;
+	}
+
+	public User getUserByEmail(String email) {
+		return userRep.getUserByEmail(email);
+		
+	}
+	
+
 //	public Collection<User> getUser() {
 //		return userRep.getUser();
 //		

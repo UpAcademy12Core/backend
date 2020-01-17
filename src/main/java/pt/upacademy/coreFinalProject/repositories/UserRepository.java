@@ -24,6 +24,10 @@ public class UserRepository extends EntityRepository<User, UserDTO> {
 	protected String getAllEntities() {
 		return User.GET_ALL_USERS;
 	}
+	
+	public User getUserByEmail(String email) {
+		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL, getEntityClass()).setParameter("userEmail", email).getResultList().stream().findFirst().orElse(null);
+	}
 
 
 
