@@ -7,10 +7,9 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import pt.upacademy.coreFinalProject.models.EntityRoot;
-import pt.upacademy.coreFinalProject.models.DTOS.EntityDTO;
 
 @Transactional
-public abstract class EntityRepository<E extends EntityRoot, D extends EntityDTO> {
+public abstract class EntityRepository<E extends EntityRoot> {
 
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;
@@ -42,5 +41,6 @@ public abstract class EntityRepository<E extends EntityRoot, D extends EntityDTO
 
 	}
 	
+
 
 }

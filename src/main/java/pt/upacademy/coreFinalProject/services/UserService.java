@@ -12,7 +12,7 @@ import pt.upacademy.coreFinalProject.repositories.UserRepository;
 import pt.upacademy.coreFinalProject.utils.PasswordUtils;
 
 @RequestScoped
-public class UserService extends EntityService<UserRepository, User, UserDTO>{
+public class UserService extends EntityService<UserRepository, User>{
 	
 	@Inject
 	protected UserRepository userRep;
@@ -50,7 +50,10 @@ public class UserService extends EntityService<UserRepository, User, UserDTO>{
 	}
 	
 	public void createUser(UserDTO userDto) {
-		
+		User user = getUserByEmail(userDto.getEmail());
+		if (user != null) {
+			throw new BadRequestException("The Email account you provided already exists!") ;
+		}
 		User newUser = new User();
 		
 		String password = randomStringGenerator();
@@ -63,8 +66,14 @@ public class UserService extends EntityService<UserRepository, User, UserDTO>{
 		newUser.setSalt(hashCode[1]);
 		newUser.setRole(userDto.getRole());
 		System.out.println("Estive aqui!");
-		userRep.addUser(newUser);
+		create(newUser);
+//		userRep.addUser(newUser);
 		
+	}
+	
+	@Override
+	public void create(User user) {
+		userRep.addUser(user);
 	}
 
 	public User checkedValidUser(UserDTO userDTO) {
@@ -86,6 +95,11 @@ public class UserService extends EntityService<UserRepository, User, UserDTO>{
 		return userRep.getUserByEmail(email);
 		
 	}
+	
+//	public User get(long id) {
+//		userRep.get
+//		return null;
+//	}
 	
 
 //	public Collection<User> getUser() {

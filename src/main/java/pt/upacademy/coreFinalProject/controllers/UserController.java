@@ -1,10 +1,16 @@
 package pt.upacademy.coreFinalProject.controllers;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,9 +23,11 @@ import pt.upacademy.coreFinalProject.services.UserService;
 
 @Path("users")
 @RequestScoped
-public class UserController extends EntityController<UserService, UserRepository, UserConverter, User, UserDTO> {
+public class UserController extends EntityControllerDTO<UserService, UserRepository, UserConverter, User, UserDTO> {
 	
-
+	@Inject
+	protected UserConverter converter;
+	
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -40,4 +48,33 @@ public class UserController extends EntityController<UserService, UserRepository
 	public UserDTO getUserByEmail (String email) {
 		return converter.toDTO(service.getUserByEmail(email));
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<UserDTO> get() {
+		return service.get().stream().map(E -> converter.toDTO(E)).collect(Collectors.toList());
+	}
+	
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserDTO get(@PathParam("id") long id) {
+		return converter.toDTO(service.get(id));
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String create(UserDTO userDTO) {
+		service.createUser(userDTO);
+		return "Create Done!";
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String update(UserDTO userDTO) {
+		service.update(converter.toEntity(userDTO));
+		return "Update Done!";
+	}	
 }
