@@ -18,6 +18,22 @@ public abstract class EntityService<R extends EntityRepository<E, D>, E extends 
 	public Collection<E> get() {
 		return repository.getEntity();
 	}
+	
+	public E get(long id) {
+		return repository.getEntity(id);
+	}
+	public void create(E entity) {
+		repository.addEntity(entity);
+	}
+	
+	public void update(E entity) {
+		repository.editEntity(entity);
+	}
+
+	public void delete(long id) {
+		repository.deleteEntity(id);
+		
+	}
 
 
 }

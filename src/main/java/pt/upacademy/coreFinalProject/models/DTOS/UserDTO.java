@@ -14,7 +14,7 @@ public class UserDTO extends EntityDTO {
 
 	public void setUsername(String username) {
 		this.username = username;
-		
+
 	}
 
 	public String getEmail() {

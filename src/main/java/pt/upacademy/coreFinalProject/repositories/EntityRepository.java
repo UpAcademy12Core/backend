@@ -11,19 +11,35 @@ import pt.upacademy.coreFinalProject.models.DTOS.EntityDTO;
 
 @Transactional
 public abstract class EntityRepository<E extends EntityRoot, D extends EntityDTO> {
-	
+
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;
 
 	public void addEntity(E entity) {
 		entityManager.merge(entity);
 	}
-	
+
 	protected abstract Class<E> getEntityClass();
+
 	protected abstract String getAllEntities();
-	
+
 	public Collection<E> getEntity() {
 		return entityManager.createNamedQuery(getAllEntities(), getEntityClass()).getResultList();
 	}
-	
+
+	public E getEntity(long id) {
+		return entityManager.find(getEntityClass(), id);
+
+	}
+
+	public void editEntity(E entity) {
+		entityManager.merge(entity);
+	}
+
+	public void deleteEntity(long id) {
+		E entity = entityManager.find(getEntityClass(), id);
+		entityManager.remove(entity);
+
+	}
+
 }
