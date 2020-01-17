@@ -4,10 +4,10 @@ import pt.upacademy.coreFinalProject.models.User;
 
 public class UserRepository extends EntityRepository<User> {
 
-	public void addUser(User newUser) {
-		addEntity(newUser);
-		
-	}
+//	public void addUser(User newUser) {
+//		addEntity(newUser);
+//		
+//	}
 
 //	public Collection<User> getUser() {
 //		return getEntity();
