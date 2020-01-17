@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 
 import pt.upacademy.coreFinalProject.models.User;
 import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
@@ -66,9 +67,19 @@ public class UserService extends EntityService<UserRepository, User, UserDTO>{
 		
 	}
 
-	public User checkedValidUser(UserDTO user) {
+	public User checkedValidUser(UserDTO userDTO) {
+		User user = getUserByEmail(userDTO.getEmail());
+		if ( user == null) {
+			throw new BadRequestException("Email - Password combination is invalid!") ;
+		}
 		
-		return null;
+		String hash = user.getHashcode();
+		String salt = user.getSalt();
+		
+		if (!PasswordUtils.verifyPassword(userDTO.getPassword(), hash, salt)) {
+			throw new BadRequestException("Email - Password combination is invalid!");
+		}		
+		return user;
 	}
 
 	public User getUserByEmail(String email) {
