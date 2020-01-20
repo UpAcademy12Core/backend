@@ -132,9 +132,9 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 		String[] sb=new String[numParams*2];
 		sb[0] = "SELECT u FROM User u WHERE ";
 		
-		Collection<String> manel = new ArrayList<String>();
-		manel = context.getQueryParameters().keySet();
-		Iterator<String> iter = manel.iterator();
+		Collection<String> arrayQueryComponents = new ArrayList<String>();
+		arrayQueryComponents = context.getQueryParameters().keySet();
+		Iterator<String> iter = arrayQueryComponents.iterator();
 
 		int counter = 1;
 		int aux =context.getQueryParameters(true).size();
