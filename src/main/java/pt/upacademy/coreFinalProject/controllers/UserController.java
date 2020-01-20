@@ -1,6 +1,8 @@
 package pt.upacademy.coreFinalProject.controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,8 +15,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import pt.upacademy.coreFinalProject.models.User;
 import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
@@ -107,28 +111,48 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 		return "Delete Done!";
 	}
 	
-//	@GET
-//	@Path("/q")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Collection<UserDTO> getAdminFilter (
-//			@QueryParam("paramName") String name,
-//			@QueryParam("paramRole") String role,
-//			@QueryParam("paramEmail") String email) {
-//		StringBuilder query = new StringBuilder();
-//		query.append("SELECT u FROM User u WHERE ");
-//		int counter = 0;
-//		
-//		for (int i = 1; i < 3; i++) {
-//			
-//		}
-//		if (name.equals("") == false) {
-//			query.append("u.name = :name");
-//			
-//		} if (role.equals("") == false) {
-//			query.append(b);
-//		}
-//		return null;
-//	}
+	@Context
+	protected UriInfo context;
+	
+	@GET
+	@Path("/q")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<UserDTO> getAdminFilter (
+			@QueryParam("name") String name,
+			@QueryParam("role") String role,
+			@QueryParam("email") String email) {
+		System.out.println("url : " + context.getRequestUri().toString()); 
+		
+//		System.out.println(name);
+//		System.out.println(role);
+//		System.out.println(email);
+		
+		int numParams = (context.getQueryParameters(true).size());
+
+		String[] sb=new String[numParams*2];
+		sb[0] = "SELECT u FROM User u WHERE ";
+		
+		Collection<String> manel = new ArrayList<String>();
+		manel = context.getQueryParameters().keySet();
+		Iterator<String> iter = manel.iterator();
+
+		int counter = 1;
+		int aux =context.getQueryParameters(true).size();
+		for (int i = 1; i <= aux; i++) {
+			String temp = iter.next();
+			sb[counter] = "u."+ temp + " = :"+temp;
+			counter += 2;
+		}
+		
+		for(int i = 0; i < sb.length; i++ ) {
+			if (sb[i] == null) {sb[i] = "AND";}
+
+		}
+		
+		String str = String.join(" ", sb);
+//		System.out.println(str);
+		return null;
+	}
 	
 //	https://www.logicbig.com/tutorials/java-ee-tutorial/jax-rs/filters.html
 }
