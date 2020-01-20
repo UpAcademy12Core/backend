@@ -21,7 +21,7 @@ public class User extends EntityRoot {
 	
 	private String username;
 	private String email;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	private String hashcode;

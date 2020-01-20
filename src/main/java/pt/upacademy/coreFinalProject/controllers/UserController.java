@@ -81,5 +81,13 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 	public String update(UserDTO userDTO) {
 		service.update(converter.toEntity(userDTO));
 		return "Update Done!";
-	}	
+	}
+	
+	@PUT
+	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String delete(@PathParam("id") long id) {
+		service.update(converter.toNullUser(service.get(id)));
+		return "Delete Done!";
+	}
 }

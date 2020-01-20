@@ -29,6 +29,17 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		return userDto;
 
 	}
+	
+	public User toNullUser (User user) {
+		User userEntity = new User();
+		userEntity.setId(user.getId());
+		userEntity.setEmail(null);
+		userEntity.setUsername(null);
+		userEntity.setHashcode(null);
+		userEntity.setSalt(null);
+		userEntity.setRole(null);
+		return userEntity;
+	}
 
 
 
