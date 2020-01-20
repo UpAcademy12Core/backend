@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -105,4 +106,29 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 		service.update(converter.toNullUser(service.get(id)));
 		return "Delete Done!";
 	}
+	
+//	@GET
+//	@Path("/q")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Collection<UserDTO> getAdminFilter (
+//			@QueryParam("paramName") String name,
+//			@QueryParam("paramRole") String role,
+//			@QueryParam("paramEmail") String email) {
+//		StringBuilder query = new StringBuilder();
+//		query.append("SELECT u FROM User u WHERE ");
+//		int counter = 0;
+//		
+//		for (int i = 1; i < 3; i++) {
+//			
+//		}
+//		if (name.equals("") == false) {
+//			query.append("u.name = :name");
+//			
+//		} if (role.equals("") == false) {
+//			query.append(b);
+//		}
+//		return null;
+//	}
+	
+//	https://www.logicbig.com/tutorials/java-ee-tutorial/jax-rs/filters.html
 }
