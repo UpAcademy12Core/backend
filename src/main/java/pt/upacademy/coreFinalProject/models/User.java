@@ -18,6 +18,7 @@ public class User extends EntityRoot {
 	public static final String GET_USER_BY_EMAIL = "getUserByEmail";
 
 	private String name;
+	@Column(nullable = false, unique = true)
 	private String email;
 	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)

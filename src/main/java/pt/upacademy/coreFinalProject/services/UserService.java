@@ -67,6 +67,14 @@ public class UserService extends EntityService<UserRepository, User>{
 //		userRep.addUser(newUser);
 	}
 	
+	@Override
+	public void update (User user) {
+		User currentUser = get(user.getId());
+		System.out.println(currentUser);
+		currentUser.setEmail(user.getEmail());
+		currentUser.setName(user.getName());
+	} 
+	
 //	attempt to fix redundancy
 	@Override
 	public void create(User user) {

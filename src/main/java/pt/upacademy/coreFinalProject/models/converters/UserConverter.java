@@ -11,11 +11,10 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		userEntity.setId(dto.getId());
 		userEntity.setEmail(dto.getEmail());
 		userEntity.setName(dto.getName());
+		userEntity.setRole(dto.getRole());
 		String[] passWord = UserService.passwordToHashcode(dto.getPassword());
 		userEntity.setHashcode(passWord[0]);
 		userEntity.setSalt(passWord[1]);
-		//	userEntity.setPassword(dto.getPassword()); // Ver como fazer password
-		userEntity.setRole(dto.getRole());
 		return userEntity;
 	}
 
@@ -24,7 +23,7 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		userDto.setId(entity.getId());
 		userDto.setEmail(entity.getEmail());
 		userDto.setName(entity.getName());
-		userDto.setPassword(null); // Ver como fazer password
+		userDto.setPassword(null);
 		userDto.setRole(entity.getRole());
 		return userDto;
 

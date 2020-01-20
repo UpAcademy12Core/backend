@@ -84,6 +84,21 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 	}
 	
 	@PUT
+	@Path("/edit")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateByAdmin(UserDTO userDTO) {
+		User temporaryUser = service.get(userDTO.getId());
+		System.out.println(temporaryUser.toString());
+		temporaryUser.setEmail(userDTO.getEmail());
+		temporaryUser.setName(userDTO.getName());
+		temporaryUser.setRole(userDTO.getRole());
+		service.update(temporaryUser);
+		return "Update Done!";
+	}
+	
+	
+	@PUT
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String delete(@PathParam("id") long id) {
