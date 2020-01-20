@@ -13,9 +13,5 @@ public class EmailUtils {
 	    	return true;
 	    }
 	}
-
-	
-	
-	//jabscjihbasdjc
 }
 

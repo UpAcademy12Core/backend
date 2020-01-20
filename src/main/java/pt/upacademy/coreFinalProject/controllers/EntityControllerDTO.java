@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import pt.upacademy.coreFinalProject.models.EntityRoot;
 import pt.upacademy.coreFinalProject.models.DTOS.EntityDTO;
@@ -43,13 +44,27 @@ public abstract class EntityControllerDTO<S extends EntityService<R, E>, R exten
 		return converter.toDTO(service.get(id));
 	}
 	
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String create(D user) {
+//		service.create(converter.toEntity(user));
+//		return "Create Done!";
+//	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String create(D user) {
-		service.create(converter.toEntity(user));
-		return "Create Done!";
+	public Response create(D user) {
+		try {
+			service.create(converter.toEntity(user));
+			return Response.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(400).entity(e.getMessage()).build(); 
+		}
 	}
+	
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)

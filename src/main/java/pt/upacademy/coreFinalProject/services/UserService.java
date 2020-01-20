@@ -9,6 +9,7 @@ import javax.ws.rs.BadRequestException;
 import pt.upacademy.coreFinalProject.models.User;
 import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
 import pt.upacademy.coreFinalProject.repositories.UserRepository;
+import pt.upacademy.coreFinalProject.utils.EmailUtils;
 import pt.upacademy.coreFinalProject.utils.PasswordUtils;
 
 @RequestScoped
@@ -53,6 +54,10 @@ public class UserService extends EntityService<UserRepository, User>{
 		String[] hashCode = passwordToHashcode(password);
 		
 		newUser.setUsername(userDto.getUsername());
+		EmailUtils eUtils = new EmailUtils();
+		if (eUtils.validEmailAdress(userDto.getEmail()) == false) {
+			throw new BadRequestException("The Email account you provided is not valid!") ;
+		}
 		newUser.setEmail(userDto.getEmail());
 		newUser.setHashcode(hashCode[0]);
 		newUser.setSalt(hashCode[1]);
