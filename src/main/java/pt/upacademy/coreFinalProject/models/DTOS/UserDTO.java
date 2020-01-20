@@ -3,18 +3,17 @@ package pt.upacademy.coreFinalProject.models.DTOS;
 import pt.upacademy.coreFinalProject.models.Role;
 
 public class UserDTO extends EntityDTO {
-	private String username;
+	private String name;
 	private String email;
 	private Role role;
 	private String password;
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {

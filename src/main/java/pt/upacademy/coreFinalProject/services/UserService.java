@@ -53,7 +53,7 @@ public class UserService extends EntityService<UserRepository, User>{
 		System.out.println(password);
 		String[] hashCode = passwordToHashcode(password);
 		
-		newUser.setUsername(userDto.getUsername());
+		newUser.setName(userDto.getName());
 		EmailUtils eUtils = new EmailUtils();
 		if (eUtils.validEmailAdress(userDto.getEmail()) == false) {
 			throw new BadRequestException("The Email account you provided is not valid!") ;
