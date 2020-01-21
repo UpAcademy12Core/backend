@@ -15,6 +15,7 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		String[] passWord = UserService.passwordToHashcode(dto.getPassword());
 		userEntity.setHashcode(passWord[0]);
 		userEntity.setSalt(passWord[1]);
+		userEntity.setValidatedEmail(dto.getValidatedEmail());
 		return userEntity;
 	}
 
@@ -25,6 +26,7 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		userDto.setName(entity.getName());
 		userDto.setPassword(null);
 		userDto.setRole(entity.getRole());
+		userDto.setValidatedEmail(entity.getValidatedEmail());
 		return userDto;
 
 	}
