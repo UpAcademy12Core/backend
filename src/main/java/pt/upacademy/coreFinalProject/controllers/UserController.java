@@ -114,6 +114,7 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 	@Context
 	protected UriInfo context;
 	
+	//URL PATTERN: http://127.0.0.1:8080/coreFinalProject/users/q?role=ADMIN&email=zemanel@sapo&name=ZeCarlos
 	@GET
 	@Path("/q")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -121,38 +122,37 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 			@QueryParam("name") String name,
 			@QueryParam("role") String role,
 			@QueryParam("email") String email) {
-		System.out.println("url : " + context.getRequestUri().toString()); 
-		
-//		System.out.println(name);
-//		System.out.println(role);
-//		System.out.println(email);
 		
 		int numParams = (context.getQueryParameters(true).size());
+		int counter = 1;
 
+		//sb= temporary array of Strings to build the query on / 
 		String[] sb=new String[numParams*2];
-		sb[0] = "SELECT u FROM User u WHERE ";
-		
 		Collection<String> arrayQueryComponents = new ArrayList<String>();
 		arrayQueryComponents = context.getQueryParameters().keySet();
-		Iterator<String> iter = arrayQueryComponents.iterator();
+		Object[] searchValues = context.getQueryParameters().values().toArray();
+		String specificSearch = new String();
 
-		int counter = 1;
-		int aux =context.getQueryParameters(true).size();
-		for (int i = 1; i <= aux; i++) {
+		Iterator<String> iter = arrayQueryComponents.iterator();
+		
+		sb[0] = "SELECT u FROM User u WHERE ";
+		for (int i = 1; i <= numParams; i++) {
+			specificSearch = searchValues[i-1].toString();
+			specificSearch = specificSearch.substring(1, specificSearch.length() - 1);
 			String temp = iter.next();
-			sb[counter] = "u."+ temp + " = :"+temp;
+			sb[counter] = "u."+ temp + " like '%"+specificSearch+"%'";
 			counter += 2;
 		}
 		
 		for(int i = 0; i < sb.length; i++ ) {
 			if (sb[i] == null) {sb[i] = "AND";}
-
 		}
 		
 		String str = String.join(" ", sb);
+
 //		System.out.println(str);
-		return null;
+		
+		Collection<User> returnCollection = service.requestFilter(str);
+		return returnCollection.stream().map(E -> converter.toDTO(E)).collect(Collectors.toList());
 	}
-	
-//	https://www.logicbig.com/tutorials/java-ee-tutorial/jax-rs/filters.html
 }

@@ -1,5 +1,7 @@
 package pt.upacademy.coreFinalProject.repositories;
 
+import java.util.Collection;
+
 import pt.upacademy.coreFinalProject.models.User;
 
 public class UserRepository extends EntityRepository<User> {
@@ -28,13 +30,8 @@ public class UserRepository extends EntityRepository<User> {
 		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL, getEntityClass()).setParameter("userEmail", email).getResultList().stream().findFirst().orElse(null);
 	}
 
-
-
-//	public void removeUser(long id) {
-//		User user = entityManager.find(entityClass, id);
-//		
-//	}
-	
-	
+	public Collection<User> getUsersByFilter(String str) {
+		return entityManager.createQuery(str,getEntityClass()).getResultList();
+	}
 
 }

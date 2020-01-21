@@ -1,5 +1,6 @@
 package pt.upacademy.coreFinalProject.services;
 
+import java.util.Collection;
 import java.util.Random;
 
 import javax.enterprise.context.RequestScoped;
@@ -107,6 +108,10 @@ public class UserService extends EntityService<UserRepository, User>{
 			return false;
 		}
 		else { return true;}
+	}
+
+	public Collection<User> requestFilter(String str) {
+		return userRep.getUsersByFilter(str);
 	}
 	
 }
