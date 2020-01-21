@@ -124,22 +124,22 @@ public class UserService extends EntityService<UserRepository, User>{
 	}
 
 	public void updatePassword(UserDTO userDto, String newPass) {
-		User frontUser = converter.toEntity(userDto);
-		System.out.println("frontUser???????????  " + frontUser.toString());
+		
 		User backUser = userRep.getEntity(userDto.getId());
-		System.out.println("BackUser???????????  " + backUser.toString());
-		System.out.println("frontUser Hash Salt?????????????"+ frontUser.getHashcode()+"        " + frontUser.getSalt());
-		System.out.println("frontUser Hash Salt?????????????"+ backUser.getHashcode()+"        " + backUser.getSalt());
-		if (frontUser.getHashcode().equals(backUser.getHashcode()) == true && frontUser.getSalt().equals(backUser.getSalt()) == true) {
+		
+		String hash = backUser.getHashcode();
+		String salt = backUser.getSalt();
+		
+		if (!PasswordUtils.verifyPassword(userDto.getPassword(), hash, salt)) {
+			throw new BadRequestException("Current password does not match!");
+		}
+		else {
 			String[] hashCode = UserService.passwordToHashcode(newPass);
 			backUser.setHashcode(hashCode[0]);
 			backUser.setSalt(hashCode[1]);
 			update(backUser);
-			
-		} else {
-			throw new BadRequestException("Current password does not match!");
 		}
-		
+			
 	}
 
 	public void validateEmail(UserDTO userDto) {
