@@ -127,6 +127,11 @@ public class UserService extends EntityService<UserRepository, User>{
 	public Collection<User> requestFilter(String str) {
 		return userRep.getUsersByFilter(str);
 	}
+	
+	public Collection<User> getUsersByRole(String role) {
+		String request = "SELECT u FROM User u WHERE u.role like '%"+role+"%'";
+		return userRep.getUsersByRole(request);
+	}
 
 	public void updatePassword(UserDTO userDto, String newPass) {
 		

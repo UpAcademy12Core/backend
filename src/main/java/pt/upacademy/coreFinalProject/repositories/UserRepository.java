@@ -33,5 +33,9 @@ public class UserRepository extends EntityRepository<User> {
 	public Collection<User> getUsersByFilter(String str) {
 		return entityManager.createQuery(str,getEntityClass()).getResultList();
 	}
+	
+	public Collection<User> getUsersByRole(String str) {
+		return entityManager.createQuery(str,getEntityClass()).getResultList();
+	}
 
 }
