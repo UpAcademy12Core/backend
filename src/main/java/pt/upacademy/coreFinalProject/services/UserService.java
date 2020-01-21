@@ -50,7 +50,7 @@ public class UserService extends EntityService<UserRepository, User>{
 		User newUser = new User();
 		
 		String password = randomStringGenerator();
-		System.out.println(password);
+		System.out.println("Password:" + password);
 		String[] hashCode = passwordToHashcode(password);
 		
 		newUser.setName(userDto.getName());

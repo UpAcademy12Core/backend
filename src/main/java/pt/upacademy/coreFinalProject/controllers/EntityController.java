@@ -23,6 +23,7 @@ public abstract class EntityController<S extends EntityService<R, E>, R extends 
 	
 	@Inject
 	protected S service;
+	
 		
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
