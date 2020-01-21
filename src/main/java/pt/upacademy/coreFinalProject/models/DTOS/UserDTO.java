@@ -7,6 +7,21 @@ public class UserDTO extends EntityDTO {
 	private String email;
 	private Role role;
 	private String password;
+	private Boolean validatedEmail;
+
+	@Override
+	public String toString() {
+		return "UserDTO [name=" + name + ", email=" + email + ", role=" + role + ", password=" + password
+				+ ", validatedEmail=" + validatedEmail + "]";
+	}
+
+	public Boolean getValidatedEmail() {
+		return validatedEmail;
+	}
+
+	public void setValidatedEmail(Boolean validatedEmail) {
+		this.validatedEmail = validatedEmail;
+	}
 
 	public String getName() {
 		return name;

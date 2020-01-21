@@ -14,8 +14,8 @@ public abstract class EntityRepository<E extends EntityRoot> {
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;
 
-	public void addEntity(E entity) {
-		entityManager.merge(entity);
+	public long addEntity(E entity) {
+		return entityManager.merge(entity).getId();
 	}
 
 	protected abstract Class<E> getEntityClass();

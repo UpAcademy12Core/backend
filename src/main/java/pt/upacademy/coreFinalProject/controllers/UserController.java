@@ -160,7 +160,9 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 	@PUT
 	@Path("/validate")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updatePassword(UserDTO userDto, String newPass) {
+	public Response updatePassword(UserDTO userDto, @QueryParam("newPass")String newPass) {
+		System.out.println(newPass);
+		System.out.println(userDto.toString());
 		try {
 		service.updatePassword(userDto, newPass);
 		service.validateEmail(userDto);

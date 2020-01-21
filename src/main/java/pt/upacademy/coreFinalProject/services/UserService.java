@@ -1,5 +1,6 @@
 package pt.upacademy.coreFinalProject.services;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Random;
 
@@ -47,7 +48,7 @@ public class UserService extends EntityService<UserRepository, User>{
 	    return generatedString;
 	}
 	
-	public void createUser(UserDTO userDto) {
+	public void createUser(UserDTO userDto) throws IOException {
 //		User user = getUserByEmail(userDto.getEmail());
 		if (emailExists(userDto) == true) {
 			throw new BadRequestException("The Email account you provided already exists!") ;
@@ -69,7 +70,10 @@ public class UserService extends EntityService<UserRepository, User>{
 		newUser.setRole(userDto.getRole());
 		newUser.setValidatedEmail(true);
 		System.out.println("Estive aqui!");
-		create(newUser);
+		long newUserId = create(newUser);
+		userDto.setPassword(password);
+		userDto.setId(newUserId);
+		EmailUtils.sendNewUser(userDto);
 //		userRep.addUser(newUser);
 	}
 	
@@ -83,8 +87,8 @@ public class UserService extends EntityService<UserRepository, User>{
 	
 //	attempt to fix redundancy
 	@Override
-	public void create(User user) {
-		userRep.addEntity(user);
+	public long create(User user) {
+		return userRep.addEntity(user);
 	}
 
 	public User checkedValidUser(UserDTO userDTO) {
@@ -121,8 +125,12 @@ public class UserService extends EntityService<UserRepository, User>{
 
 	public void updatePassword(UserDTO userDto, String newPass) {
 		User frontUser = converter.toEntity(userDto);
-		User backUser = get(userDto.getId());
-		if (frontUser.getHashcode() == backUser.getHashcode() && frontUser.getSalt() == backUser.getSalt()) {
+		System.out.println("frontUser???????????  " + frontUser.toString());
+		User backUser = userRep.getEntity(userDto.getId());
+		System.out.println("BackUser???????????  " + backUser.toString());
+		System.out.println("frontUser Hash Salt?????????????"+ frontUser.getHashcode()+"        " + frontUser.getSalt());
+		System.out.println("frontUser Hash Salt?????????????"+ backUser.getHashcode()+"        " + backUser.getSalt());
+		if (frontUser.getHashcode().equals(backUser.getHashcode()) == true && frontUser.getSalt().equals(backUser.getSalt()) == true) {
 			String[] hashCode = UserService.passwordToHashcode(newPass);
 			backUser.setHashcode(hashCode[0]);
 			backUser.setSalt(hashCode[1]);
