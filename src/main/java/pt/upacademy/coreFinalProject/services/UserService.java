@@ -83,7 +83,12 @@ public class UserService extends EntityService<UserRepository, User>{
 		System.out.println(currentUser);
 		currentUser.setEmail(user.getEmail());
 		currentUser.setName(user.getName());
-	} 
+	}
+	
+	
+	public void updateToNull(User nullUser) {
+		repository.editEntity(nullUser);
+	}
 	
 //	attempt to fix redundancy
 	@Override
@@ -152,5 +157,7 @@ public class UserService extends EntityService<UserRepository, User>{
 		}
 		
 	}
+
+
 	
 }
