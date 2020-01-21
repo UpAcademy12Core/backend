@@ -143,11 +143,10 @@ public class UserService extends EntityService<UserRepository, User>{
 	}
 
 	public void validateEmail(UserDTO userDto) {
-		User backUser = get(userDto.getId());
-		if (backUser.getEmail() == userDto.getEmail()) {
+		User backUser = userRep.getEntity(userDto.getId());
+		if (backUser.getEmail().equals(userDto.getEmail())== true) {
 			backUser.setValidatedEmail(true);
 			update(backUser);
-			
 		} else {
 			throw new BadRequestException("Current Email doesn't match!");
 		}
