@@ -25,6 +25,15 @@ public class User extends EntityRoot {
 	private Role role;
 	private String hashcode;
 	private String salt;
+	private Boolean validatedEmail;
+
+	public Boolean getValidatedEmail() {
+		return validatedEmail;
+	}
+
+	public void setValidatedEmail(Boolean validatedEmail) {
+		this.validatedEmail = validatedEmail;
+	}
 
 	public String getName() {
 		return name;

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -154,5 +155,19 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 		
 		Collection<User> returnCollection = service.requestFilter(str);
 		return returnCollection.stream().map(E -> converter.toDTO(E)).collect(Collectors.toList());
+	}
+	
+	@PUT
+	@Path("/validate")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updatePassword(UserDTO userDto, String newPass) {
+		try {
+		service.updatePassword(userDto, newPass);
+		service.validateEmail(userDto);
+		return Response.ok().build(); 
+		} catch (BadRequestException e) {
+			e.printStackTrace();
+			return Response.status(400).entity(e.getMessage()).build(); 
+		}
 	}
 }

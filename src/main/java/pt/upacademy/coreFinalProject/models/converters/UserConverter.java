@@ -37,6 +37,7 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		userEntity.setHashcode(null);
 		userEntity.setSalt(null);
 		userEntity.setRole(null);
+		userEntity.setValidatedEmail(null);
 		return userEntity;
 	}
 
