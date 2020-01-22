@@ -123,14 +123,30 @@ public class UserService extends EntityService<UserRepository, User>{
 		return userRep.getUsersByFilter(str);
 	}
 
+//	public void updatePassword(UserDTO userDto, String newPass) {
+//		User frontUser = converter.toEntity(userDto);
+//		System.out.println("frontUser???????????  " + frontUser.toString());
+//		User backUser = userRep.getEntity(userDto.getId());
+//		System.out.println("BackUser???????????  " + backUser.toString());
+//		System.out.println("frontUser Hash Salt?????????????"+ frontUser.getHashcode()+"        " + frontUser.getSalt());
+//		System.out.println("frontUser Hash Salt?????????????"+ backUser.getHashcode()+"        " + backUser.getSalt());
+//		if (frontUser.getHashcode().equals(backUser.getHashcode()) == true && frontUser.getSalt().equals(backUser.getSalt()) == true) {
+//			String[] hashCode = UserService.passwordToHashcode(newPass);
+//			backUser.setHashcode(hashCode[0]);
+//			backUser.setSalt(hashCode[1]);
+//			update(backUser);
+//			
+//		} else {
+//			throw new BadRequestException("Current password does not match!");
+//		}
+//		
+//	}
+	
 	public void updatePassword(UserDTO userDto, String newPass) {
-		User frontUser = converter.toEntity(userDto);
-		System.out.println("frontUser???????????  " + frontUser.toString());
+		String currentPass = userDto.getPassword();
 		User backUser = userRep.getEntity(userDto.getId());
-		System.out.println("BackUser???????????  " + backUser.toString());
-		System.out.println("frontUser Hash Salt?????????????"+ frontUser.getHashcode()+"        " + frontUser.getSalt());
-		System.out.println("frontUser Hash Salt?????????????"+ backUser.getHashcode()+"        " + backUser.getSalt());
-		if (frontUser.getHashcode().equals(backUser.getHashcode()) == true && frontUser.getSalt().equals(backUser.getSalt()) == true) {
+		System.out.println("------------------->" + PasswordUtils.verifyPassword(currentPass, backUser.getHashcode(), backUser.getSalt()) + "<----------------------------");
+		if (PasswordUtils.verifyPassword(currentPass, backUser.getHashcode(), backUser.getSalt()) == true) {
 			String[] hashCode = UserService.passwordToHashcode(newPass);
 			backUser.setHashcode(hashCode[0]);
 			backUser.setSalt(hashCode[1]);
@@ -143,8 +159,8 @@ public class UserService extends EntityService<UserRepository, User>{
 	}
 
 	public void validateEmail(UserDTO userDto) {
-		User backUser = get(userDto.getId());
-		if (backUser.getEmail() == userDto.getEmail()) {
+		User backUser = userRep.getEntity(userDto.getId());
+		if (backUser.getEmail().equals(userDto.getEmail()) == true) {
 			backUser.setValidatedEmail(true);
 			update(backUser);
 			
