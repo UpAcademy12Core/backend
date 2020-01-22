@@ -141,7 +141,11 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 			specificSearch = searchValues[i-1].toString();
 			specificSearch = specificSearch.substring(1, specificSearch.length() - 1);
 			String temp = iter.next();
-			sb[counter] = "u."+ temp + " like '%"+specificSearch+"%'";
+			if (!temp.equals("role")) {
+			sb[counter] = "u."+ temp + " like '%"+specificSearch+"%'";}
+			else if(temp.equals("role")) {
+			sb[counter] = "u."+ temp + " like '"+specificSearch+"%'";
+			}
 			counter += 2;
 		}
 		
