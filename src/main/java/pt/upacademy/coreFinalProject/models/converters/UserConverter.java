@@ -15,6 +15,7 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		String[] passWord = UserService.passwordToHashcode(dto.getPassword());
 		userEntity.setHashcode(passWord[0]);
 		userEntity.setSalt(passWord[1]);
+		userEntity.setValidatedEmail(dto.getValidatedEmail());
 		return userEntity;
 	}
 
@@ -25,20 +26,19 @@ public class UserConverter extends EntityConverter<User, UserDTO>{
 		userDto.setName(entity.getName());
 		userDto.setPassword(null);
 		userDto.setRole(entity.getRole());
+		userDto.setValidatedEmail(entity.getValidatedEmail());
 		return userDto;
 
 	}
 	
 	public User toNullUser (User user) {
-		User userEntity = new User();
-		userEntity.setId(user.getId());
-		userEntity.setEmail(null);
-		userEntity.setName(null);
-		userEntity.setHashcode(null);
-		userEntity.setSalt(null);
-		userEntity.setRole(null);
-		userEntity.setValidatedEmail(null);
-		return userEntity;
+		user.setEmail(null);
+		user.setName(null);
+		user.setHashcode(null);
+		user.setSalt(null);
+		user.setRole(null);
+		user.setValidatedEmail(null);
+		return user;
 	}
 
 

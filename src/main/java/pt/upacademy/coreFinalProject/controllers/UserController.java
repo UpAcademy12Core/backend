@@ -108,7 +108,7 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String delete(@PathParam("id") long id) {
-		service.update(converter.toNullUser(service.get(id)));
+		service.updateToNull(converter.toNullUser(service.get(id)));
 		return "Delete Done!";
 	}
 	
@@ -141,7 +141,11 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 			specificSearch = searchValues[i-1].toString();
 			specificSearch = specificSearch.substring(1, specificSearch.length() - 1);
 			String temp = iter.next();
-			sb[counter] = "u."+ temp + " like '%"+specificSearch+"%'";
+			if (!temp.equals("role")) {
+			sb[counter] = "u."+ temp + " like '%"+specificSearch+"%'";}
+			else if(temp.equals("role")) {
+			sb[counter] = "u."+ temp + " like '"+specificSearch+"%'";
+			}
 			counter += 2;
 		}
 		
@@ -161,8 +165,6 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 	@Path("/validate")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updatePassword(UserDTO userDto, @QueryParam("newPass")String newPass) {
-		System.out.println(newPass);
-		System.out.println(userDto.toString());
 		try {
 		service.updatePassword(userDto, newPass);
 		service.validateEmail(userDto);
