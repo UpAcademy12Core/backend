@@ -31,6 +31,12 @@ public abstract class EntityControllerDTO<S extends EntityService<R, E>, R exten
 	@Inject
 	protected C converter;
 	
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Collection<D> get() {
+//		return service.get().stream().map(E -> converter.toDTO(E)).collect(Collectors.toList());
+//	}
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<D> get() {
@@ -69,17 +75,37 @@ public abstract class EntityControllerDTO<S extends EntityService<R, E>, R exten
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String update(D user) {
+	public Response update(D user) {
+		try {
 		service.update(converter.toEntity(user));
-		return "Update Done!";
+		return Response.ok().build();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			return Response.status(400).entity(e.getMessage()).build(); 
+		}
+		
 	}
 	
+//	@DELETE
+//	@Path("/{id}")
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String delete(@PathParam("id") long id) {
+//		service.delete(id);
+//		return "Delete Done!";
+//	}
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String delete(@PathParam("id") long id) {
+	public Response delete(@PathParam("id") long id) {
+		try {
 		service.delete(id);
-		return "Delete Done!";
+		return Response.ok().build();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			return Response.status(400).entity(e.getMessage()).build(); 
+		}
 	}
 	
 }
