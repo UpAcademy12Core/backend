@@ -1,6 +1,6 @@
-package pt.upacademy.coreFinalProject.models.DTOS;
+package pt.upacademy.coreFinalProject.models.core.DTOS;
 
-import pt.upacademy.coreFinalProject.models.Role;
+import pt.upacademy.coreFinalProject.models.core.Role;
 
 public class UserDTO extends EntityDTO {
 	private String name;

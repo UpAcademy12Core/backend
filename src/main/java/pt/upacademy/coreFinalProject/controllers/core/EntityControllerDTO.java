@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.controllers;
+package pt.upacademy.coreFinalProject.controllers.core;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -15,11 +15,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import pt.upacademy.coreFinalProject.models.EntityRoot;
-import pt.upacademy.coreFinalProject.models.DTOS.EntityDTO;
-import pt.upacademy.coreFinalProject.models.converters.EntityConverter;
-import pt.upacademy.coreFinalProject.repositories.EntityRepository;
-import pt.upacademy.coreFinalProject.services.EntityService;
+import pt.upacademy.coreFinalProject.models.core.EntityRoot;
+import pt.upacademy.coreFinalProject.models.core.DTOS.EntityDTO;
+import pt.upacademy.coreFinalProject.models.core.converters.EntityConverter;
+import pt.upacademy.coreFinalProject.repositories.core.EntityRepository;
+import pt.upacademy.coreFinalProject.services.core.EntityService;
 
 
 public abstract class EntityControllerDTO<S extends EntityService<R, E>, R extends EntityRepository<E>, C extends EntityConverter< E, D>, E extends EntityRoot, D extends EntityDTO> {

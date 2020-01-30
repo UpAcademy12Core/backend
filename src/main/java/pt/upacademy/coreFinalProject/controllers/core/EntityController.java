@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.controllers;
+package pt.upacademy.coreFinalProject.controllers.core;
 
 import java.util.Collection;
 
@@ -13,9 +13,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import pt.upacademy.coreFinalProject.models.EntityRoot;
-import pt.upacademy.coreFinalProject.repositories.EntityRepository;
-import pt.upacademy.coreFinalProject.services.EntityService;
+import pt.upacademy.coreFinalProject.models.core.EntityRoot;
+import pt.upacademy.coreFinalProject.repositories.core.EntityRepository;
+import pt.upacademy.coreFinalProject.services.core.EntityService;
 
 
 public abstract class EntityController<S extends EntityService<R, E>, R extends EntityRepository<E>, E extends EntityRoot>{

@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.controllers;
+package pt.upacademy.coreFinalProject.controllers.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,11 +21,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import pt.upacademy.coreFinalProject.models.User;
-import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
-import pt.upacademy.coreFinalProject.models.converters.UserConverter;
-import pt.upacademy.coreFinalProject.repositories.UserRepository;
-import pt.upacademy.coreFinalProject.services.UserService;
+import pt.upacademy.coreFinalProject.models.core.User;
+import pt.upacademy.coreFinalProject.models.core.DTOS.UserDTO;
+import pt.upacademy.coreFinalProject.models.core.converters.UserConverter;
+import pt.upacademy.coreFinalProject.repositories.core.UserRepository;
+import pt.upacademy.coreFinalProject.services.core.UserService;
 
 @Path("users")
 @RequestScoped

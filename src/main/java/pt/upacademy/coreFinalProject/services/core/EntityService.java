@@ -1,12 +1,12 @@
-package pt.upacademy.coreFinalProject.services;
+package pt.upacademy.coreFinalProject.services.core;
 
 import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import pt.upacademy.coreFinalProject.models.EntityRoot;
-import pt.upacademy.coreFinalProject.repositories.EntityRepository;
+import pt.upacademy.coreFinalProject.models.core.EntityRoot;
+import pt.upacademy.coreFinalProject.repositories.core.EntityRepository;
 
 @Transactional
 public abstract class EntityService<R extends EntityRepository<E>, E extends EntityRoot> {

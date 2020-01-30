@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.models;
+package pt.upacademy.coreFinalProject.models.core;
 
 import java.io.Serializable;
 

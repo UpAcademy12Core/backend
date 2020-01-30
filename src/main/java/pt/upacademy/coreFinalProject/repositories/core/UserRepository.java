@@ -1,8 +1,8 @@
-package pt.upacademy.coreFinalProject.repositories;
+package pt.upacademy.coreFinalProject.repositories.core;
 
 import java.util.Collection;
 
-import pt.upacademy.coreFinalProject.models.User;
+import pt.upacademy.coreFinalProject.models.core.User;
 
 public class UserRepository extends EntityRepository<User> {
 

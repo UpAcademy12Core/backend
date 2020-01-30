@@ -1,9 +1,9 @@
-package pt.upacademy.coreFinalProject.models.converters;
+package pt.upacademy.coreFinalProject.models.core.converters;
 
 import javax.enterprise.context.RequestScoped;
 
-import pt.upacademy.coreFinalProject.models.EntityRoot;
-import pt.upacademy.coreFinalProject.models.DTOS.EntityDTO;
+import pt.upacademy.coreFinalProject.models.core.EntityRoot;
+import pt.upacademy.coreFinalProject.models.core.DTOS.EntityDTO;
 
 @RequestScoped
 public abstract class EntityConverter<E extends EntityRoot, D extends EntityDTO> {

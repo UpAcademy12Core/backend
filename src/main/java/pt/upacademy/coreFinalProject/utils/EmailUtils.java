@@ -13,7 +13,7 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 
-import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
+import pt.upacademy.coreFinalProject.models.core.DTOS.UserDTO;
 
 
 

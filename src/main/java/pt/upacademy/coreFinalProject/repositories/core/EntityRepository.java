@@ -1,14 +1,13 @@
-package pt.upacademy.coreFinalProject.repositories;
+package pt.upacademy.coreFinalProject.repositories.core;
 
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
-import pt.upacademy.coreFinalProject.models.EntityRoot;
+import pt.upacademy.coreFinalProject.models.core.EntityRoot;
 
-@Transactional
+
 public abstract class EntityRepository<E extends EntityRoot> {
 
 	@PersistenceContext(unitName = "database")

@@ -1,8 +1,8 @@
-package pt.upacademy.coreFinalProject.models.converters;
+package pt.upacademy.coreFinalProject.models.core.converters;
 
-import pt.upacademy.coreFinalProject.models.User;
-import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
-import pt.upacademy.coreFinalProject.services.UserService;
+import pt.upacademy.coreFinalProject.models.core.User;
+import pt.upacademy.coreFinalProject.models.core.DTOS.UserDTO;
+import pt.upacademy.coreFinalProject.services.core.UserService;
 
 public class UserConverter extends EntityConverter<User, UserDTO>{
 

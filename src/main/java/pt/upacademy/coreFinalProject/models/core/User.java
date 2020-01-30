@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.models;
+package pt.upacademy.coreFinalProject.models.core;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

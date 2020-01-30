@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.models.DTOS;
+package pt.upacademy.coreFinalProject.models.core.DTOS;
 
 public class EntityDTO {
 	

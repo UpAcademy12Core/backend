@@ -1,4 +1,4 @@
-package pt.upacademy.coreFinalProject.services;
+package pt.upacademy.coreFinalProject.services.core;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -8,10 +8,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 
-import pt.upacademy.coreFinalProject.models.User;
-import pt.upacademy.coreFinalProject.models.DTOS.UserDTO;
-import pt.upacademy.coreFinalProject.models.converters.UserConverter;
-import pt.upacademy.coreFinalProject.repositories.UserRepository;
+import pt.upacademy.coreFinalProject.models.core.User;
+import pt.upacademy.coreFinalProject.models.core.DTOS.UserDTO;
+import pt.upacademy.coreFinalProject.models.core.converters.UserConverter;
+import pt.upacademy.coreFinalProject.repositories.core.UserRepository;
 import pt.upacademy.coreFinalProject.utils.EmailUtils;
 import pt.upacademy.coreFinalProject.utils.PasswordUtils;
 
