@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import pt.upacademy.coreFinalProject.models.core.EntityRoot;
 import pt.upacademy.coreFinalProject.repositories.core.EntityRepository;
@@ -41,10 +42,16 @@ public abstract class EntityController<S extends EntityService<R, E>, R extends 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String create(E entity) {
-		service.create(entity);
-		return "Create Done!";
+	public Response create(E entity) {
+		try {
+			return Response.ok().entity(service.create(entity)).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(400).entity(e.getMessage()).build(); 
+		}
+		
 	}
+	
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)

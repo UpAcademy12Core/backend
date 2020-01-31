@@ -63,8 +63,7 @@ public abstract class EntityControllerDTO<S extends EntityService<R, E>, R exten
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response create(D user) {
 		try {
-			service.create(converter.toEntity(user));
-			return Response.ok().build();
+			return Response.ok().entity(service.create(converter.toEntity(user))).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(400).entity(e.getMessage()).build(); 
