@@ -1,6 +1,7 @@
 package pt.upacademy.coreFinalProject.services.core;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Random;
 
@@ -163,6 +164,44 @@ public class UserService extends EntityService<UserRepository, User>{
 		
 	}
 
+	public void sendRecoveryConfirmation(User userHelper) throws IOException {
+		String encEmail = encryptEmail(userHelper.getEmail());
+		String normalMail = userHelper.getEmail();
+		EmailUtils.sendRecoveryConfirm(encEmail,normalMail);
+	}
+	public void sendNewPass(UserDTO userHelper) throws IOException {
+		String newPass = randomStringGenerator();
+		String[] hashCode = passwordToHashcode(newPass);
+		userHelper.setPassword(newPass);
+		User updateUser = converter.toEntity(userHelper);
+		updateUser.setHashcode(hashCode[0]);
+		updateUser.setSalt(hashCode[1]);
+		update(updateUser);
+		EmailUtils.sendNewPassword(userHelper,newPass );
+	}
 
+	public String  encryptEmail(String plain) {
+			   String b64encoded = Base64.getEncoder().encodeToString(plain.getBytes());
+
+			   // Reverse the string
+			   String reverse = new StringBuffer(b64encoded).reverse().toString();
+
+			   StringBuilder tmp = new StringBuilder();
+			   final int OFFSET = 4;
+			   for (int i = 0; i < reverse.length(); i++) {
+			      tmp.append((char)(reverse.charAt(i) + OFFSET));
+			   }
+			   return tmp.toString();
+			}
 	
+	public String  decryptEmail(String secret) {
+		   StringBuilder tmp = new StringBuilder();
+		   final int OFFSET = 4;
+		   for (int i = 0; i < secret.length(); i++) {
+		      tmp.append((char)(secret.charAt(i) - OFFSET));
+		   }
+
+		   String reversed = new StringBuffer(tmp.toString()).reverse().toString();
+		   return new String(Base64.getDecoder().decode(reversed));
+	}
 }

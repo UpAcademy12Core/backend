@@ -197,4 +197,34 @@ public class UserController extends EntityControllerDTO<UserService, UserReposit
 			return Response.status(400).entity(e.getMessage()).build(); 
 		}
 	}
+	
+	@POST
+	@Path("/recover/{email}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response recoverConfirm(@PathParam("email") String email) {
+		try {
+			User userHelper = service.getUserByEmail(email);
+			service.sendRecoveryConfirmation(userHelper);
+			return Response.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		}
+	}
+	
+	@POST
+	@Path("/recover/confirmed/{emaiEncl}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response recover(@PathParam("emaiEncl") String email) {
+		try {
+			String decryptedMail = service.decryptEmail(email);
+			User userHelper = service.getUserByEmail(decryptedMail);
+			UserDTO userHelperDTO = converter.toDTO(userHelper);
+			service.sendNewPass(userHelperDTO);
+			return Response.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		}
+	}
 }
